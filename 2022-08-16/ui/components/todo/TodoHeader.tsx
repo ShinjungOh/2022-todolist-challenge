@@ -33,7 +33,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
   font-size: 30px;
-  color: rgba(37, 36, 36, 0.81);
+  color: #252424CE;
   margin: 0;
   font-weight: bold;
 `;
