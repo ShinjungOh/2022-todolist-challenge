@@ -16,7 +16,7 @@ const TodoCreate = ({
   onSubmit,
   value,
 }: Props) => (
-  <>
+  <Container>
     <CreateButton isOpen={isOpen} onClick={onToggle}>
       {isOpen ? '닫기' : '추가'}
     </CreateButton>
@@ -24,17 +24,22 @@ const TodoCreate = ({
       isOpen && (
         <CreateContainer>
           <CreateForm onSubmit={onSubmit}>
-            <Input onChange={onChange} value={value} placeholder="입력 후 Enter" />
+            <Input onChange={onChange} value={value} autoFocus placeholder="입력 후 Enter" />
           </CreateForm>
         </CreateContainer>
       )
     }
-  </>
+  </Container>
 );
 
 export default TodoCreate;
 
-const CreateButton = styled.button<{isOpen: boolean}>`
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const CreateButton = styled.button<{ isOpen: boolean }>`
   width: 70px;
   height: 40px;
   background-color: #3a68f9;
@@ -60,9 +65,12 @@ const CreateContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 3;
+  background-color: white;
 `;
 
 const CreateForm = styled.form`
+  background-color: white;
 `;
 
 const Input = styled.input`
