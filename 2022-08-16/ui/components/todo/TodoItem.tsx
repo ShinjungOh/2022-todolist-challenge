@@ -55,6 +55,8 @@ const Text = styled.div<{ done: boolean }>`
   color: #252424;
   font-size: 18px;
   justify-content: start;
+  flex: 1;
+  margin-left: 15px; 
   ${(props) => props.done
           && css`
             color: #ced4da;
