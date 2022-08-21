@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Layout = ({ children }: Props) => (
@@ -15,8 +15,10 @@ export default Layout;
 
 const Container = styled.div`
   background-color: white;
-  width: 420px;
-  height: 900px;
+  width: 100vw;
+  max-width: 420px;
+  height: 100vh;
+  max-height: 900px;
   position: absolute;
   top: 50%;
   left: 50%;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Layout from '@components/layout/Layout';
 
 interface Props {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Page = ({ children }: Props) => (
@@ -20,5 +20,6 @@ export default Page;
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: #f6f5f5;
+  background-color: #f1f1f1;
+  position: relative;
 `;
