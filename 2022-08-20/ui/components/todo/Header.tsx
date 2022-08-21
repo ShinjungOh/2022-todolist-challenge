@@ -1,17 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => (
-  <>
-    <DateContainer>
-      <Title>날짜</Title>
-      <DayName>요일</DayName>
-    </DateContainer>
-    <TodoContainer>
-      <TodoCount>할일 0개 남음</TodoCount>
-    </TodoContainer>
-  </>
-);
+const Header = () => {
+  const today = new Date();
+  const date = today.toLocaleDateString('ko-kr');
+  const dayName = today.toLocaleString('ko-kr', {
+    weekday: 'long',
+  });
+
+  const unDoneTaskLength = 0;
+
+  return (
+    <>
+      <DateContainer>
+        <Title>{date}</Title>
+        <DayName>{dayName}</DayName>
+      </DateContainer>
+      <TodoContainer>
+        <TodoCount>할일 {unDoneTaskLength}개 남음</TodoCount>
+      </TodoContainer>
+    </>
+  );
+};
 
 export default Header;
 
