@@ -21,6 +21,7 @@ const Todolist = () => {
 
   const onToggleDone = (id: number) => {
     console.log('done');
+    setTodos((prev) => prev.map((el) => (el.id === id ? ({ ...el, done: !el.done }) : el)));
   };
 
   const onClickDelete = (id: number) => {

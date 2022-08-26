@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { TodoItemType } from '../../../pages/todolist';
 
@@ -48,6 +48,10 @@ const CheckBox = styled.div<{ done: boolean }>`
   border-radius: 50%;
   cursor: pointer;
   padding: 5px 5px;
+  ${(props) => props.done
+          && css`
+            border: 1px solid #96b397;
+          `}
 `;
 
 const TodoText = styled.text<{ done: boolean }>`
@@ -55,6 +59,11 @@ const TodoText = styled.text<{ done: boolean }>`
   font-size: 23px;
   color: #5d5a5a;
   flex: 1;
+  ${(props) => props.done
+          && css`
+            color: #a9a9a9;
+            text-decoration: line-through;
+          `}
 `;
 
 const Delete = styled.button`
