@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => {
+interface Props {
+  unDoneTaskLength: number;
+}
+
+const Header = ({ unDoneTaskLength }: Props) => {
   const today = new Date();
   const date = today.toLocaleDateString('ko-kr');
   const dayName = today.toLocaleString('ko-kr', {
     weekday: 'long',
   });
-
-  const unDoneTaskLength = 0;
 
   return (
     <>

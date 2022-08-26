@@ -1,47 +1,36 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
 
 interface Props {
   isOpen: boolean;
+  onToggleIsOpen: () => void;
+  onChangeCreateInput: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmitCreate: (e: FormEvent<HTMLFormElement>) => void;
+  value: string;
 }
 
-const TodoCreate = ({ isOpen }: Props) => {
-  const [isOpenCreate, setIsOpenCreate] = useState(false);
-  const [createItem, setCreateItem] = useState('');
-
-  const onToggleIsOpen = () => {
-    setIsOpenCreate((prev) => !prev);
-  };
-
-  const onChangeCreateInput = (e: { target: { value: any; }; }) => {
-    const { value } = e.target;
-    setCreateItem(value);
-  };
-
-  const onSubmitCreate = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    setIsOpenCreate(false);
-    setCreateItem('');
-  };
-
-  return (
-    <div>
-      {
-        isOpen
-        && (
-          <InputContainer>
-            <CreateForm onSubmit={onSubmitCreate}>
-              <Input onChange={onChangeCreateInput} value={createItem} autoFocus placeholder="입력 후 Enter" />
-            </CreateForm>
-          </InputContainer>
-        )
-      }
-      <CreateButton isOpen={isOpenCreate} onClick={onToggleIsOpen}>
-        <img src="/icon/svgs/plus.svg" alt="추가 버튼" />
-      </CreateButton>
-    </div>
-  );
-};
+const TodoCreate = ({
+  isOpen,
+  onToggleIsOpen,
+  onChangeCreateInput,
+  onSubmitCreate,
+}: Props) => (
+  <div>
+    {
+      isOpen
+      && (
+        <InputContainer>
+          <CreateForm onSubmit={onSubmitCreate}>
+            <Input onChange={onChangeCreateInput} autoFocus placeholder="입력 후 Enter" />
+          </CreateForm>
+        </InputContainer>
+      )
+    }
+    <CreateButton isOpen={isOpen} onClick={onToggleIsOpen}>
+      <img src="/icon/svgs/plus.svg" alt="추가 버튼" />
+    </CreateButton>
+  </div>
+);
 
 export default TodoCreate;
 
@@ -58,6 +47,9 @@ const InputContainer = styled.div`
 `;
 
 const CreateForm = styled.form`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const Input = styled.input`

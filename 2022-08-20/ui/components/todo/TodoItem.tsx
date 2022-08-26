@@ -1,34 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TodoItem = () => {
-  const text = 'text';
+import { TodoItemType } from '../../../pages/todolist';
 
-  const onToggleDone = () => {
-  };
+interface Props {
+  onToggleDone: (id: number) => void;
+  onClickDelete: (id: number) => void;
+}
 
-  return (
-    <Container>
-      <CheckBox>
-        {onToggleDone
-          && (
-            <img src="/icon/svgs/check.svg" alt="체크 표시" />
-          )
-        }
-      </CheckBox>
-      <TodoText>{text}</TodoText>
-      <Delete>
-        <img src="/icon/svgs/delete.svg" alt="삭제" />
-      </Delete>
-    </Container>
-  );
-};
+const TodoItem = ({
+  id,
+  text,
+  done,
+  onToggleDone,
+  onClickDelete,
+}: Props & TodoItemType) => (
+  <Container>
+    <CheckBox done={done} onClick={() => onToggleDone(id)}>
+      {
+        done && (
+          <img src="/icon/svgs/check.svg" alt="체크 표시" />
+        )
+      }
+    </CheckBox>
+    <TodoText done={done}>{text}</TodoText>
+    <Delete onClick={() => onClickDelete(id)}>
+      <img src="/icon/svgs/delete.svg" alt="삭제" />
+    </Delete>
+  </Container>
+);
 
 export default TodoItem;
 
 const Container = styled.div`
   height: 50px;
-  //background-color: lightyellow;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -36,7 +41,7 @@ const Container = styled.div`
   margin: 10px 0;
 `;
 
-const CheckBox = styled.div`
+const CheckBox = styled.div<{ done: boolean }>`
   width: 30px;
   height: 30px;
   border: 1px solid #5d5a5a;
@@ -45,7 +50,7 @@ const CheckBox = styled.div`
   padding: 5px 5px;
 `;
 
-const TodoText = styled.text`
+const TodoText = styled.text<{ done: boolean }>`
   padding-left: 17px;
   font-size: 23px;
   color: #5d5a5a;
