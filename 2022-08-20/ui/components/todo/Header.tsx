@@ -19,7 +19,7 @@ const Header = ({ unDoneTaskLength }: Props) => {
         <DayName>{dayName}</DayName>
       </DateContainer>
       <TodoContainer>
-        <TodoCount>할일 {unDoneTaskLength}개 남음</TodoCount>
+        <TodoCount>할 일 {unDoneTaskLength}개 남음</TodoCount>
       </TodoContainer>
     </>
   );
@@ -63,3 +63,6 @@ const TodoCount = styled.div`
   margin-top: 15px;
   font-size: 20px;
 `;
+function memo(Header: ({ unDoneTaskLength }: Props) => JSX.Element) {
+  throw new Error('Function not implemented.');
+}

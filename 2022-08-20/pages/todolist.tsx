@@ -20,31 +20,25 @@ const Todolist = () => {
   const nextId = useRef(0);
 
   const onToggleDone = (id: number) => {
-    console.log('done');
     setTodos((prev) => prev.map((el) => (el.id === id ? ({ ...el, done: !el.done }) : el)));
   };
 
   const onClickDelete = (id: number) => {
-    console.log('delete');
     setTodos((prev) => prev.filter((el) => el.id !== id));
   };
 
   const onToggleIsOpen = () => {
-    console.log('plus');
     setIsOpenCreate((prev) => !prev);
   };
 
   const onChangeCreateInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    console.log('input : ', value);
     setCreateItem(value);
   };
 
   const onSubmitCreate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     nextId.current += 1;
-    console.log('submit');
-    console.log(nextId);
     setTodos((prev) => [...prev,
       {
         id: nextId.current,
