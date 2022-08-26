@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -25,7 +25,7 @@ const Header = ({ unDoneTaskLength }: Props) => {
   );
 };
 
-export default Header;
+export default memo(Header);
 
 const DateContainer = styled.div`
   width: 100%;
@@ -63,6 +63,3 @@ const TodoCount = styled.div`
   margin-top: 15px;
   font-size: 20px;
 `;
-function memo(Header: ({ unDoneTaskLength }: Props) => JSX.Element) {
-  throw new Error('Function not implemented.');
-}

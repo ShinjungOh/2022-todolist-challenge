@@ -32,7 +32,7 @@ export default memo(TodoList);
 
 const Container = styled.div`
   position: relative;
-  height: 400px;
+  height: 64%;
   overflow-y: auto;
   padding: 10px 40px 30px 40px;
 `;

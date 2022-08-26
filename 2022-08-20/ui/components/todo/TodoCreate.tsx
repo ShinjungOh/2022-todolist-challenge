@@ -44,6 +44,7 @@ const InputContainer = styled.div`
   align-items: center;
   position: absolute;
   border-top: 1px solid #eaeaea;
+  bottom: 0;
 `;
 
 const CreateForm = styled.form`
@@ -64,7 +65,7 @@ const CreateButton = styled.button<{ isOpen: boolean }>`
   margin-top: 10px;
   padding: 12px;
   position: absolute;
-  top: 77%;
+  top: 74%;
   left: 78%;
   display: flex;
   align-items: center;
