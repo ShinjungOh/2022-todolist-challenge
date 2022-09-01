@@ -1,15 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => (
-  <Container>
-    <DayContainer>
-      <Title>2022.09.01</Title>
-      <DayName>수요일</DayName>
-    </DayContainer>
-    <UnDoneTaskLength>남은 할 일 0개</UnDoneTaskLength>
-  </Container>
-);
+const Header = () => {
+  const today = new Date();
+  const title = today.toLocaleString('ko-kr', {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const dayName = today.toLocaleString('ko-kr', {
+    weekday: 'long',
+  });
+
+  console.log(dayName);
+
+  return (
+    <Container>
+      <DayContainer>
+        <Title>{title}</Title>
+        <DayName>{dayName}</DayName>
+      </DayContainer>
+      <UnDoneTaskLength>남은 할 일 0개</UnDoneTaskLength>
+    </Container>
+  );
+};
 
 export default Header;
 
@@ -48,8 +63,5 @@ const UnDoneTaskLength = styled.div`
   align-items: center;
   flex-direction: column;
   position: relative;
-  top: 26%;
-}
-  
-  
+  top: 25%;
 `;
