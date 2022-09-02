@@ -13,8 +13,6 @@ const Header = () => {
     weekday: 'long',
   });
 
-  console.log(dayName);
-
   return (
     <Container>
       <DayContainer>

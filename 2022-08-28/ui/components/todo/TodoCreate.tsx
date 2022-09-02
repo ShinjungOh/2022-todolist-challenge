@@ -84,6 +84,6 @@ const Button = styled.button<{ isOpen: boolean }>`
   cursor: pointer;
   position: absolute;
   left: 67%;
-  top: 43%;
+  bottom: 3%;
   z-index: 1;
 `;
