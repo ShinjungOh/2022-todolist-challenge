@@ -3,9 +3,27 @@ import styled from 'styled-components';
 
 import { TodoItem } from '@components/todo/index';
 
-const TodoList = () => (
+import { TodoItemType } from '../../../pages/todolist';
+
+interface Props {
+  onClickDelete: (id: number) => void;
+  onToggleDone: (id: number) => void;
+  todos: TodoItemType[];
+}
+
+const TodoList = ({
+  onClickDelete,
+  onToggleDone,
+  todos,
+}: Props) => (
   <Container>
-    <TodoItem />
+    {todos.map((todo) => <TodoItem
+      key={todo.id}
+      {...todo}
+      onClickDelete={onClickDelete}
+      onToggleDone={onToggleDone}
+    />)
+    }
   </Container>
 );
 

@@ -1,19 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TodoItem = () => (
+import { TodoItemType } from '../../../pages/todolist';
+
+interface Props {
+  onClickDelete: (id: number) => void;
+  onToggleDone: (id: number) => void;
+}
+
+const TodoItem = ({
+  onClickDelete,
+  onToggleDone,
+  id,
+  done,
+  text,
+}: Props & TodoItemType) => (
   <Container>
     <DoneButton>
-      <DoneCheck>
-        <img src="./icon/svgs/check.svg" alt="완료" />
+      <DoneCheck done={done} onClick={() => onToggleDone(id)}>
+        {
+          done && <img src="./icon/svgs/check.svg" alt="완료" />
+        }
       </DoneCheck>
     </DoneButton>
-    <TodoText>할 일</TodoText>
-    <DeleteButton>
+    <TodoText>{text}</TodoText>
+    <DeleteButton onClick={() => onClickDelete(id)}>
       <img src="./icon/svgs/delete.svg" alt="삭제" />
     </DeleteButton>
   </Container>
-
 );
 
 export default TodoItem;
@@ -38,7 +52,7 @@ const DoneButton = styled.div`
   cursor: pointer;
 `;
 
-const DoneCheck = styled.div`
+const DoneCheck = styled.div<{ done: boolean }>`
   width: 25px;
   height: 25px;
   padding: 3px 0.5px 2px 3px;
