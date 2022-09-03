@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 
 import { TodoItemType } from '../../../pages/todolist';
@@ -30,7 +30,7 @@ const TodoItem = ({
   </Container>
 );
 
-export default TodoItem;
+export default memo(TodoItem);
 
 const Container = styled.div`
   width: 100%;
