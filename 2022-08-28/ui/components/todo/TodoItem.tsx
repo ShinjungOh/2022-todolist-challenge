@@ -5,7 +5,7 @@ import { TodoItemType } from '../../../pages/todolist';
 
 interface Props {
   onClickDelete: (id: number) => void;
-  onToggleDone: (id: number) => void;
+  onToggleDone: (id: number, done: boolean) => void;
 }
 
 const TodoItem = ({
@@ -17,7 +17,7 @@ const TodoItem = ({
 }: Props & TodoItemType) => (
   <Container>
     <DoneButton done={done}>
-      <DoneCheck onClick={() => onToggleDone(id)}>
+      <DoneCheck onClick={() => onToggleDone(id, !done)}>
         {
           done && <img src="./icon/svgs/check.svg" alt="완료" />
         }

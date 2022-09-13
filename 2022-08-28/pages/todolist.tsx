@@ -1,8 +1,14 @@
 import React, {
-  ChangeEvent, FormEvent, useMemo, useRef, useState,
+  ChangeEvent, FormEvent, useEffect, useMemo, useState,
 } from 'react';
 
 import { TodoHeader, TodoCreate, TodoList } from '@components/todo';
+
+// eslint-disable-next-line import/no-cycle
+import { getTodoList } from '../lib/api/todo/getTodoList';
+import { deleteTodoList } from '../lib/api/todo/deleteTodoList';
+import { postTodoList } from '../lib/api/todo/postTodoList';
+import { patchTodoList } from '../lib/api/todo/patchTodoList';
 
 export interface TodoItemType {
   id: number;
@@ -17,14 +23,22 @@ const Todolist = () => {
 
   const unDoneTaskLength = useMemo(() => todos.filter((todos) => !todos.done).length, [todos]);
 
-  const nextId = useRef(0);
-
-  const onToggleDone = (id: number) => {
-    setTodos((prev) => prev.map((el) => (el.id === id ? ({ ...el, done: !el.done }) : el)));
+  const onToggleDone = async (id: number, done: boolean) => {
+    try {
+      await patchTodoList({ id, done });
+      await getTodo();
+    } catch (e) {
+      alert('오류가 발생했습니다.');
+    }
   };
 
-  const onClickDelete = (id: number) => {
-    setTodos((prev) => prev.filter((el) => el.id !== id));
+  const onClickDelete = async (id: number) => {
+    try {
+      await deleteTodoList(id);
+      await getTodo();
+    } catch (e) {
+      alert('오류가 발생했습니다.');
+    }
   };
 
   const onToggleIsOpen = () => {
@@ -36,19 +50,31 @@ const Todolist = () => {
     setCreateItem(value);
   };
 
-  const onSubmitCreate = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitCreate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    nextId.current += 1;
-    setTodos((prev) => [...prev,
-      {
-        id: nextId.current,
-        text: createItem,
-        done: false,
-      },
-    ]);
-    setIsOpen(false);
-    setCreateItem('');
+    try {
+      await postTodoList({ text: createItem });
+      await getTodo();
+      setIsOpen(false);
+      setCreateItem('');
+    } catch (e) {
+      alert('오류가 발생했습니다.');
+    }
   };
+
+  const getTodo = async () => {
+    try {
+      const result = await getTodoList();
+      setTodos(result);
+    } catch (e) {
+      setTodos([]);
+      alert('오류가 발생했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    getTodo();
+  }, []);
 
   return (
     <>

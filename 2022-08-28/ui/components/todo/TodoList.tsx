@@ -7,7 +7,7 @@ import { TodoItemType } from '../../../pages/todolist';
 
 interface Props {
   onClickDelete: (id: number) => void;
-  onToggleDone: (id: number) => void;
+  onToggleDone: (id: number, done: boolean) => void;
   todos: TodoItemType[];
 }
 
