@@ -1,15 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TodoHeader = () => (
-  <Container>
-    <DayContainer>
-      <Today>2022.09.19</Today>
-      <DayName>월요일</DayName>
-    </DayContainer>
-    <UnDoneTodoLength>남은 할 일 0개</UnDoneTodoLength>
-  </Container>
-);
+const TodoHeader = () => {
+  const today = new Date();
+
+  const title = today.toLocaleString('ko-kr', {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const dayName = today.toLocaleString('ko-kr', {
+    weekday: 'long',
+  });
+
+  return (
+    <Container>
+      <DayContainer>
+        <Today>{title}</Today>
+        <DayName>{dayName}</DayName>
+      </DayContainer>
+      <UnDoneTodoLength>남은 할 일 0개</UnDoneTodoLength>
+    </Container>
+  );
+};
 
 export default TodoHeader;
 
