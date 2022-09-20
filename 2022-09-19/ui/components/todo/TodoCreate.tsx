@@ -1,16 +1,43 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-const TodoCreate = () => (
-  <>
-    <Container>
-      <FormContainer>
-        <Input placeholder="입력 후 enter로 답변 제출" />
-      </FormContainer>
-    </Container>
-    <Button>추가</Button>
-  </>
-);
+const TodoCreate = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [createItem, setCreateItem] = useState('');
+
+  const onToggleIsOpen = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleCreateTodo = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setCreateItem(value);
+  };
+
+  const handleSubmitTodo = (e: SubmitEvent) => {
+    e.preventDefault();
+    setIsOpen(false);
+    setCreateItem('');
+  };
+
+  return (
+    <>
+      {
+        isOpen
+        && <Container>
+          <FormContainer onSubmit={handleSubmitTodo}>
+            <Input onChange={handleCreateTodo} value={createItem} placeholder="입력 후 enter로 답변 제출" />
+          </FormContainer>
+        </Container>
+      }
+      <Button isOpen={false} onClick={onToggleIsOpen}>
+        {
+          isOpen ? '닫기' : '추가'
+        }
+      </Button>
+    </>
+  );
+};
 
 export default TodoCreate;
 
@@ -41,7 +68,7 @@ const Input = styled.input`
   cursor: pointer;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ isOpen: boolean }>`
   width: 80px;
   height: 40px;
   background-color: #ffd733;
