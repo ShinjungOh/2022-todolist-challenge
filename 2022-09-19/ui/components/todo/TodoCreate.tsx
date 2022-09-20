@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 
 const TodoCreate = () => {
@@ -14,7 +14,7 @@ const TodoCreate = () => {
     setCreateItem(value);
   };
 
-  const handleSubmitTodo = (e: SubmitEvent) => {
+  const handleSubmitTodo = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsOpen(false);
     setCreateItem('');
