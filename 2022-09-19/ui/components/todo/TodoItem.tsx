@@ -5,7 +5,7 @@ import { FaTrash, FaCheck } from 'react-icons/fa';
 import { TodoItemType } from '../../../pages/todolist';
 
 interface Props {
-  onToggleDone: (id: number) => void;
+  onToggleDone: (id: number, done: boolean) => void;
   onDelete: (id: number) => void;
 }
 
@@ -17,7 +17,7 @@ const TodoItem = ({
   done,
 }: Props & TodoItemType) => (
   <Container>
-    <Done done={done} onClick={() => onToggleDone(id)}>
+    <Done done={done} onClick={() => onToggleDone(id, !done)}>
       {
         done && <FaCheck size="23" />
       }
