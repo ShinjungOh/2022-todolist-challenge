@@ -1,14 +1,29 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FaTrash, FaCheck } from 'react-icons/fa';
 
-const TodoItem = () => (
+import { TodoItemType } from '../../../pages/todolist';
+
+interface Props {
+  onToggleDone: (id: number) => void;
+  onDelete: (id: number) => void;
+}
+
+const TodoItem = ({
+  onToggleDone,
+  onDelete,
+  id,
+  text,
+  done,
+}: Props & TodoItemType) => (
   <Container>
-    <Done>
-      <FaCheck size="23" />
+    <Done done={done} onClick={() => onToggleDone(id)}>
+      {
+        done && <FaCheck size="23" />
+      }
     </Done>
-    <Text>Todo</Text>
-    <Delete>
+    <Text done={done}>{text}</Text>
+    <Delete onClick={() => onDelete(id)}>
       <FaTrash color="#b79a12" size="23" />
     </Delete>
   </Container>
@@ -27,7 +42,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Done = styled.div`
+const Done = styled.div<{ done: boolean }>`
   width: 35px;
   height: 35px;
   margin-right: 15px;
@@ -37,11 +52,29 @@ const Done = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  ${(props) => props.done
+          && css`
+            border-color: #ffd733;
+          `}
 `;
 
-const Text = styled.text`
+const Text = styled.text<{ done: boolean }>`
   font-size: 20px;
   flex: 1 1;
+  ${(props) => props.done
+          && css`
+            color: #9d9d9d;
+            text-decoration: line-through;
+          `}
 `;
 
-const Delete = styled.text``;
+const Delete = styled.text`
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
