@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -29,7 +29,7 @@ const TodoHeader = ({ undoneTodoLength }: Props) => {
   );
 };
 
-export default TodoHeader;
+export default memo(TodoHeader);
 
 const Container = styled.div`
   width: 100%;
