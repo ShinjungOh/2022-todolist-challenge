@@ -15,7 +15,7 @@ const TodoList = ({
   todos,
   onToggleDone,
   onDelete,
-}: Props & TodoItemType) => (
+}: Props) => (
   <Container>
     {
       todos.map((todo) => <TodoItem
