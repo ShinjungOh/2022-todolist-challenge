@@ -1,16 +1,48 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 
-const TodoCreate = () => (
-  <>
-    <TodoContainer>
-      <InputForm>
-        <Input placeholder="enter를 눌러 입력하세요." autoFocus />
-      </InputForm>
-    </TodoContainer>
-    <Button>추가</Button>
-  </>
-);
+const TodoCreate = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [createTodo, setCreateTodo] = useState();
+
+  const toggleIsOpen = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const onCreate = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setCreateTodo(value);
+  };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setCreateTodo('');
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      {
+        isOpen
+        && <TodoContainer>
+          <InputForm onSubmit={onSubmit}>
+            <Input
+              onChange={onCreate}
+              value={createTodo}
+              placeholder="enter를 눌러 입력하세요."
+              autoFocus
+            />
+          </InputForm>
+        </TodoContainer>
+      }
+      <Button isOpen={isOpen} onClick={toggleIsOpen}>
+        {
+          isOpen ? '닫기' : '추가'
+        }
+      </Button>
+    </>
+  );
+};
 
 export default TodoCreate;
 
@@ -46,7 +78,7 @@ const Input = styled.input`
   font-size: 16px;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ isOpen: boolean }>`
   width: 80px;
   height: 40px;
   border: none;
