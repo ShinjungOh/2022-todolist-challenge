@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Layout } from '@components/index';
+import { Layout } from '@components/layout/index';
 
 interface Props {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 
 import GlobalStyles from '@ui/core/GlobalStyle';
-import { Page } from '@ui/components';
+import { Page } from '@components/layout';
 
 function MyApp({
   Component,
