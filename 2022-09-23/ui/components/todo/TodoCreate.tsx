@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent, memo } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -38,7 +38,7 @@ const TodoCreate = ({
   </>
 );
 
-export default TodoCreate;
+export default memo(TodoCreate);
 
 const TodoContainer = styled.div`
   width: 100%;
