@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => {
+interface Props {
+  unDoneTodoLength: number;
+}
+
+const Header = ({ unDoneTodoLength }: Props) => {
   const today = new Date();
   const date = today.toLocaleDateString('ko-kr', {
     year: 'numeric',
@@ -19,7 +23,7 @@ const Header = () => {
         <Today>{date}</Today>
         <DayName>{dayName}</DayName>
       </DayContainer>
-      <UndoneTodoLength>할 일이 0개 남았습니다.</UndoneTodoLength>
+      <UndoneTodoLength>할 일이 {unDoneTodoLength}개 남았습니다.</UndoneTodoLength>
     </Container>
   );
 };

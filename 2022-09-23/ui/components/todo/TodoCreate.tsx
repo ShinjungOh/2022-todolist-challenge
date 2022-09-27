@@ -1,48 +1,42 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
 
-const TodoCreate = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [createTodo, setCreateTodo] = useState();
+interface Props {
+  isOpen: boolean;
+  onToggle: () => void;
+  value: string;
+  onCreate: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+}
 
-  const toggleIsOpen = () => {
-    setIsOpen((prev) => !prev);
-  };
-
-  const onCreate = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setCreateTodo(value);
-  };
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setCreateTodo('');
-    setIsOpen(false);
-  };
-
-  return (
-    <>
+const TodoCreate = ({
+  isOpen,
+  onToggle,
+  value,
+  onCreate,
+  onSubmit,
+}: Props) => (
+  <>
+    {
+      isOpen
+      && <TodoContainer>
+        <InputForm onSubmit={onSubmit}>
+          <Input
+            onChange={onCreate}
+            value={value}
+            placeholder="enter를 눌러 입력하세요."
+            autoFocus
+          />
+        </InputForm>
+      </TodoContainer>
+    }
+    <Button isOpen={isOpen} onClick={onToggle}>
       {
-        isOpen
-        && <TodoContainer>
-          <InputForm onSubmit={onSubmit}>
-            <Input
-              onChange={onCreate}
-              value={createTodo}
-              placeholder="enter를 눌러 입력하세요."
-              autoFocus
-            />
-          </InputForm>
-        </TodoContainer>
+        isOpen ? '닫기' : '추가'
       }
-      <Button isOpen={isOpen} onClick={toggleIsOpen}>
-        {
-          isOpen ? '닫기' : '추가'
-        }
-      </Button>
-    </>
-  );
-};
+    </Button>
+  </>
+);
 
 export default TodoCreate;
 
