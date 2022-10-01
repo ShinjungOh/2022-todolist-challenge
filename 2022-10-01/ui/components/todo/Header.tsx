@@ -1,15 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => (
-  <Container>
-    <DayContainer>
-      <Today>2022.10.01</Today>
-      <DayName>Sat.</DayName>
-    </DayContainer>
-    <UndoneTaskLength>할 일이 0개 남았습니다.</UndoneTaskLength>
-  </Container>
-);
+const Header = () => {
+  const today = new Date();
+  const date = today.toLocaleString('ko-kr', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const dayName = today.toLocaleString('ko-kr', {
+    weekday: 'narrow',
+  });
+
+  return (
+    <Container>
+      <DayContainer>
+        <Today>{date}</Today>
+        <DayName>{dayName}</DayName>
+      </DayContainer>
+      <UndoneTaskLength>할 일이 0개 남았습니다.</UndoneTaskLength>
+    </Container>
+  );
+};
 
 export default Header;
 
