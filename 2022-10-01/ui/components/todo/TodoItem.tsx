@@ -5,7 +5,7 @@ import { FaCheck, FaTrash } from 'react-icons/fa';
 import { TodoItemType } from '../../../pages/todolist';
 
 interface Props {
-  onDone: (id: number) => void;
+  onDone: (id: number, bone: boolean) => void;
   onDelete: (id: number) => void;
 }
 
@@ -19,7 +19,7 @@ const TodoItem = ({
   <Container>
     <Done
       done={done}
-      onClick={() => onDone(id)}
+      onClick={() => onDone(id, !done)}
     >
       {
         done && (
@@ -55,6 +55,7 @@ const Done = styled.div<{ done: boolean }>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   ${(props) => props.done
           && css`
             border-color: #FFCC80;
@@ -79,4 +80,5 @@ const Delete = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
