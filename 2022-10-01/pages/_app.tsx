@@ -4,6 +4,8 @@ import { AppProps } from 'next/app';
 import GlobalStyle from '@ui/core/GlobalStyle';
 import { Page } from '@ui/components/layout';
 
+import { TodoStoreProvider } from '../lib/store/stores';
+
 const MyApp = ({
   Component,
   pageProps,
@@ -13,9 +15,11 @@ const MyApp = ({
       <title>투두 리스트</title>
     </Head>
     <GlobalStyle />
-    <Page>
-      <Component {...pageProps} />
-    </Page>
+    <TodoStoreProvider>
+      <Page>
+        <Component {...pageProps} />
+      </Page>
+    </TodoStoreProvider>
   </>
 );
 
