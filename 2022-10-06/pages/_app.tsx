@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 
 import GlobalStyles from '@ui/core/GlobalStyles';
+import { Page } from '@ui/components/page';
 
 const MyApp = ({
   Component,
@@ -14,7 +15,9 @@ const MyApp = ({
       </title>
     </Head>
     <GlobalStyles />
-    <Component {...pageProps} />
+    <Page>
+      <Component {...pageProps} />
+    </Page>
   </>
 );
 
