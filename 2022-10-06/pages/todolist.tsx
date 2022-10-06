@@ -1,9 +1,12 @@
 import React from 'react';
 
-import { TodoHeader } from '@components/todo';
+import { TodoCreate, TodoHeader } from '@components/todo';
 
 const Todolist = () => (
-  <TodoHeader />
+  <>
+    <TodoHeader />
+    <TodoCreate />
+  </>
 );
 
 export default Todolist;
