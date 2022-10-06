@@ -1,13 +1,12 @@
 import React, {
   ChangeEvent, FormEvent, useEffect, useMemo, useState,
 } from 'react';
+import { observer } from 'mobx-react';
 
 import { TodoCreate, TodoHeader, TodoList } from '@components/todo';
-import deleteTodoItem from 'lib/api/todo/deleteTodoItem';
-import patchTodoItem from 'lib/api/todo/patchTodoItem';
+
 // eslint-disable-next-line import/no-cycle
-import getTodoItem from 'lib/api/todo/getTodoItem';
-import postTodoItem from 'lib/api/todo/postTodoItem';
+import { useTodoStores } from '../lib/store/stores';
 
 export interface TodoItemType {
   id: number;
@@ -16,10 +15,11 @@ export interface TodoItemType {
 }
 
 const Todolist = () => {
+  const { todoStore } = useTodoStores();
   const [isOpen, setIsOpen] = useState(false);
   const [createTodo, setCreateTodo] = useState('');
 
-  const [todos, setTodos] = useState<TodoItemType[]>([]);
+  console.log(todoStore.todos);
 
   const onToggle = () => {
     setIsOpen((prev) => !prev);
@@ -31,49 +31,24 @@ const Todolist = () => {
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      await postTodoItem(createTodo);
-      await getTodo();
-      setCreateTodo('');
-      setIsOpen(false);
-    } catch (e) {
-      alert('오류가 발생했습니다.');
-    }
+    e.preventDefault();
+    await todoStore.onSubmit(createTodo);
+    setCreateTodo('');
+    setIsOpen(false);
   };
 
-  const onDone = async (id: number, done: boolean) => {
-    try {
-      await patchTodoItem(id, done);
-      await getTodo();
-    } catch (e) {
-      alert('오류가 발생했습니다.');
-    }
+  const onClickDone = async (id: number, done: boolean) => {
+    await todoStore.onDone(id, done);
   };
 
-  const onDelete = async (id: number) => {
-    try {
-      await deleteTodoItem(id);
-      await getTodo();
-    } catch (e) {
-      alert('오류가 발생했습니다.');
-    }
+  const onClickDelete = async (id: number) => {
+    await todoStore.onDelete(id);
   };
 
-  const unDoneTodoLength = useMemo(() => (todos.filter((todo) => !todo.done).length), [todos]);
-
-  const getTodo = async () => {
-    try {
-      const result = await getTodoItem();
-      setTodos(result);
-    } catch (e) {
-      alert('오류가 발생했습니다.');
-      setTodos([]);
-    }
-  };
+  const unDoneTodoLength = useMemo(() => (todoStore.todos.filter((todo) => !todo.done).length), [todoStore.todos]);
 
   useEffect(() => {
-    getTodo();
+    todoStore.getTodo();
   }, []);
 
   return (
@@ -82,9 +57,9 @@ const Todolist = () => {
         unDoneTodoLength={unDoneTodoLength}
       />
       <TodoList
-        todos={todos}
-        onDone={onDone}
-        onDelete={onDelete}
+        todos={todoStore.todos}
+        onDone={onClickDone}
+        onDelete={onClickDelete}
       />
       <TodoCreate
         isOpen={isOpen}
@@ -97,4 +72,4 @@ const Todolist = () => {
   );
 };
 
-export default Todolist;
+export default observer(Todolist);
