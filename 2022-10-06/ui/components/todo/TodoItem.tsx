@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FaCheck, FaTrash } from 'react-icons/fa';
 import styled, { css } from 'styled-components';
 
@@ -23,7 +23,6 @@ const TodoItem = ({
           <FaCheck size={20} />
         )
       }
-
     </Done>
     <Text done={done}>{text}</Text>
     <Delete onClick={() => onDelete(id)}>
@@ -32,7 +31,7 @@ const TodoItem = ({
   </Container>
 );
 
-export default TodoItem;
+export default memo(TodoItem);
 
 const Container = styled.div`
   width: 100%;
