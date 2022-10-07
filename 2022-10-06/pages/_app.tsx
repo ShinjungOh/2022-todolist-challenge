@@ -4,6 +4,8 @@ import Head from 'next/head';
 import GlobalStyles from '@ui/core/GlobalStyles';
 import { Page } from '@ui/components/page';
 
+import { TodoStoreProvider } from '../lib/store/stores';
+
 const MyApp = ({
   Component,
   pageProps,
@@ -15,9 +17,11 @@ const MyApp = ({
       </title>
     </Head>
     <GlobalStyles />
-    <Page>
-      <Component {...pageProps} />
-    </Page>
+    <TodoStoreProvider>
+      <Page>
+        <Component {...pageProps} />
+      </Page>
+    </TodoStoreProvider>
   </>
 );
 
