@@ -1,5 +1,5 @@
 import React, {
-  ChangeEvent, FormEvent, useEffect, useMemo, useState,
+  ChangeEvent, FormEvent, useEffect, useMemo,
 } from 'react';
 import { observer } from 'mobx-react';
 
@@ -16,23 +16,21 @@ export interface TodoItemType {
 
 const Todolist = () => {
   const { todoStore } = useTodoStores();
-  const [isOpen, setIsOpen] = useState(false);
-  const [createTodo, setCreateTodo] = useState('');
 
-  const onToggle = () => {
-    setIsOpen((prev) => !prev);
+  const onToggleIsOpen = () => {
+    todoStore.onToggle();
   };
 
-  const onCreate = (e: ChangeEvent<HTMLInputElement>) => {
+  const onTodoCreate = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setCreateTodo(value);
+    todoStore.onCreate(value);
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await todoStore.onSubmit(createTodo);
-    setIsOpen(false);
-    setCreateTodo('');
+    await todoStore.onSubmit(todoStore.createTodo);
+    todoStore.onToggle(false);
+    todoStore.createTodo = '';
   };
 
   const onClickDone = async (id: number, done: boolean) => {
@@ -60,11 +58,11 @@ const Todolist = () => {
         onDelete={onClickDelete}
       />
       <TodoCreate
-        isOpen={isOpen}
-        onToggle={onToggle}
-        onCreate={onCreate}
+        isOpen={todoStore.isOpen}
+        onToggle={onToggleIsOpen}
+        onCreate={onTodoCreate}
         onSubmit={onSubmit}
-        value={createTodo}
+        value={todoStore.createTodo}
       />
     </>
   );
