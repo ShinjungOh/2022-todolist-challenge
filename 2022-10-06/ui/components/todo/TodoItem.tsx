@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { FaCheck, FaTrash } from 'react-icons/fa';
 import styled, { css } from 'styled-components';
 
-import { TodoItemType } from '../../../pages/todolist';
+import { TodoItemType } from 'lib/interface/todo.interface';
 
 interface Props {
   onDone: (id: number, done: boolean) => void;

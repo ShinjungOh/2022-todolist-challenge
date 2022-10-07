@@ -1,8 +1,7 @@
 import { observable } from 'mobx';
 
-// eslint-disable-next-line import/no-cycle
-import { TodoItemType } from '../../pages/todolist';
-// eslint-disable-next-line import/no-cycle
+import { TodoItemType } from 'lib/interface/todo.interface';
+
 import { getTodoItem } from '../api/todo/getTodoItem';
 import { deleteTodoItem } from '../api/todo/deleteTodoItem';
 import { patchTodoItem } from '../api/todo/patchTodoItem';

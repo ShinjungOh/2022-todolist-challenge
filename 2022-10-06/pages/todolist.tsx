@@ -5,14 +5,7 @@ import { observer } from 'mobx-react';
 
 import { TodoCreate, TodoHeader, TodoList } from '@components/todo';
 
-// eslint-disable-next-line import/no-cycle
 import { useTodoStores } from '../lib/store/stores';
-
-export interface TodoItemType {
-  id: number;
-  text: string;
-  done: boolean;
-}
 
 const Todolist = () => {
   const { todoStore } = useTodoStores();

@@ -2,8 +2,7 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 
 import { TodoItem } from '@components/todo/index';
-
-import { TodoItemType } from '../../../pages/todolist';
+import { TodoItemType } from 'lib/interface/todo.interface';
 
 interface Props {
   todos: TodoItemType[];

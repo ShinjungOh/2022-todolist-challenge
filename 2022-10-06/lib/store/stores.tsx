@@ -1,6 +1,5 @@
 import { createContext, useContext } from 'react';
 
-// eslint-disable-next-line import/no-cycle
 import todoStore from './todoStore';
 
 const stores = {
