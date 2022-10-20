@@ -2,8 +2,8 @@ import { observable } from 'mobx';
 
 import { SignInUser } from '../api/user/SignInUser';
 import { SignUpUser } from '../api/user/SignUpUser';
-import { User, UserParam } from '../api/interface/user.interface';
 import { AuthUser } from '../api/user/AuthUser';
+import { User, UserParam } from '../interface/user.interface';
 
 export interface Store {
   user?: User;
