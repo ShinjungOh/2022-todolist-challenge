@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { observer } from 'mobx-react';
 
 import { useTodoStores } from '../../lib/store/stores';
 
@@ -60,7 +61,7 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default memo(observer(Signin));
 
 const Container = styled.div`
   display: flex;

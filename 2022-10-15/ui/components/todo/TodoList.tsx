@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 import { TodoItem } from '@components/todo/index';
@@ -30,7 +30,7 @@ const TodoList = ({
   </Container>
 );
 
-export default TodoList;
+export default memo(TodoList);
 
 const Container = styled.div`
   position: absolute;

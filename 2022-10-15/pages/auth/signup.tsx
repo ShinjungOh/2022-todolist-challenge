@@ -1,4 +1,6 @@
-import React, { ChangeEvent, useCallback, useEffect } from 'react';
+import React, {
+  ChangeEvent, memo, useCallback, useEffect,
+} from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -82,7 +84,7 @@ const Signup = () => {
   );
 };
 
-export default observer(Signup);
+export default memo(observer(Signup));
 
 const Container = styled.div`
   display: flex;

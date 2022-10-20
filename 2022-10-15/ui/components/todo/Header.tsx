@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 import userStore from '../../../lib/store/userStore';
@@ -30,7 +30,7 @@ const Header = ({ unDoneTodoLength }: Props) => {
   );
 };
 
-export default Header;
+export default memo(Header);
 
 const Container = styled.div`
   position: absolute;
