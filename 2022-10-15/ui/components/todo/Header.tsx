@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => {
+import userStore from '../../../lib/store/userStore';
+
+interface Props {
+  unDoneTodoLength: number;
+}
+
+const Header = ({ unDoneTodoLength }: Props) => {
   const today = new Date();
   const date = today.toLocaleString('ko-kr', {
     year: '2-digit',
@@ -18,7 +24,8 @@ const Header = () => {
         <Today>{date}</Today>
         <DayName>{dayName}</DayName>
       </DayContainer>
-      <UndoneTodoLength>할 일 0개 남음</UndoneTodoLength>
+      {userStore.signIn.email}
+      <UndoneTodoLength>할 일 {unDoneTodoLength}개 남음</UndoneTodoLength>
     </Container>
   );
 };
@@ -61,7 +68,7 @@ const DayName = styled.div`
 
 const UndoneTodoLength = styled.div`
   position: absolute;
-  top: 55%;
+  top: 65%;
   font-size: 23px;
   display: flex;
   flex-direction: row;
