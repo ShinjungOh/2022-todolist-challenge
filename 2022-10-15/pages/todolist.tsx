@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
+import { TodoHeader } from '@components/todo';
+
 import { useTodoStores } from '../lib/store/stores';
 
 const Todolist = () => {
@@ -20,7 +22,7 @@ const Todolist = () => {
 
   return (
     <Container>
-      todolist
+      <TodoHeader />
     </Container>
   );
 };
@@ -28,5 +30,4 @@ const Todolist = () => {
 export default Todolist;
 
 const Container = styled.div`
-  background-color: green
 `;
