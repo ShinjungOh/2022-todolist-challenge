@@ -1,21 +1,64 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const Signin = () => (
-  <Container>
-    <Title>TodoList</Title>
-    <InputContainer>
-      <Label htmlFor="id">아이디를 입력하세요.</Label>
-      <Input type="text" id="id" />
-    </InputContainer>
-    <InputContainer>
-      <Label htmlFor="password">비밀번호를 입력하세요.</Label>
-      <Input type="text" id="password" />
-    </InputContainer>
-    <SigninButton>로그인</SigninButton>
-    <SignupButton>회원가입</SignupButton>
-  </Container>
-);
+import { useTodoStores } from '../../lib/store/stores';
+
+const Signin = () => {
+  const router = useRouter();
+  const { userStore } = useTodoStores();
+
+  const onChangeInput = (e: { target: { name: any; value: any; }; }) => {
+    const {
+      name,
+      value,
+    } = e.target;
+    userStore.onChangeSignIn(name, value);
+  };
+
+  const onClickSignIn = useCallback(async () => {
+    const isSignIn = await userStore.signinUser();
+    if (isSignIn) {
+      router.push('/todolist');
+    }
+  }, [userStore.signIn.email, userStore.signIn.password]);
+
+  useEffect(() => {
+    userStore.clearSignInUser();
+  }, []);
+
+  return (
+    <Container>
+      <Title>TodoList</Title>
+      <InputContainer>
+        <Label htmlFor="id">아이디를 입력하세요.</Label>
+        <Input
+          type="text"
+          id="id"
+          name="email"
+          onChange={onChangeInput}
+        />
+      </InputContainer>
+      <InputContainer>
+        <Label htmlFor="password">비밀번호를 입력하세요.</Label>
+        <Input
+          type="text"
+          id="password"
+          name="password"
+          onChange={onChangeInput}
+        />
+      </InputContainer>
+      <SigninButton onClick={onClickSignIn}>로그인</SigninButton>
+      <SignupButton>
+        <Link href="/auth/signup">
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a>회원가입</a>
+        </Link>
+      </SignupButton>
+    </Container>
+  );
+};
 
 export default Signin;
 
@@ -79,7 +122,7 @@ const SigninButton = styled.button`
 const SignupButton = styled.div`
   margin-top: 30px;
   font-size: 15px;
-  color: #494949;
+  color: #5353e3;
   display: flex;
   flex-direction: column;
   justify-content: center;
