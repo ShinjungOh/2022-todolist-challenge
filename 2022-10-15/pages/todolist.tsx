@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
-import { TodoHeader } from '@components/todo';
+import { TodoCreate, TodoHeader } from '@components/todo';
 
 import { useTodoStores } from '../lib/store/stores';
 
@@ -23,6 +23,7 @@ const Todolist = () => {
   return (
     <Container>
       <TodoHeader />
+      <TodoCreate />
     </Container>
   );
 };
