@@ -44,7 +44,7 @@ const Todolist = () => {
 
   const onDone = async (id: number, done: boolean) => {
     try {
-      await patchTodoItem(id, done);
+      await patchTodoItem(id, { done });
       await getTodo();
     } catch (e) {
       alert('할 일 완료 오류가 발생했습니다.');
@@ -66,24 +66,29 @@ const Todolist = () => {
     try {
       const response = await getTodoItem();
       setTodos(response);
-    } catch (e) {
+    } catch (e: any) {
+      // if (e?.response?.data?.msg === '토큰이 유효하지 않습니다.') {
+      //   alert('잘못된 접근 입니다.');
+      //   router.replace('/');
+      //   return;
+      // }
       alert('불러오는 중 오류가 발생했습니다.');
       setTodos([]);
     }
   };
 
   useEffect(() => {
-    getTodo();
+    (async () => {
+      const isAuth = await userStore.getAuthUser();
+      if (!isAuth) {
+        alert('회원 정보가 없습니다.');
+        router.replace('/auth/signin');
+      }
+    })();
   }, []);
 
   useEffect(() => {
-    (async () => {
-      const isAuth = await userStore.getAuthUser;
-      if (!isAuth) {
-        alert('회원 정보가 없습니다.');
-        router.push('/auth/signin');
-      }
-    })();
+    getTodo();
   }, []);
 
   return (

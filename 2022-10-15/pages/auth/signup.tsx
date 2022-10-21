@@ -23,8 +23,12 @@ const Signup = () => {
   };
 
   const onClickSignUp = useCallback(async () => {
+    if (userStore.signUp.password !== userStore.signUp.passwordCheck) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
     const isSignUp = await userStore.signupUser();
-    if (isSignUp && userStore.signUp.password === userStore.signUp.passwordCheck) {
+    if (isSignUp) {
       router.push('/todolist');
     }
   }, [userStore.signUp.email, userStore.signUp.password]);

@@ -24,7 +24,7 @@ const Header = ({ unDoneTodoLength }: Props) => {
         <Today>{date}</Today>
         <DayName>{dayName}</DayName>
       </DayContainer>
-      {userStore.signIn.email}
+      {userStore.user?.email}
       <UndoneTodoLength>할 일 {unDoneTodoLength}개 남음</UndoneTodoLength>
     </Container>
   );
