@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 import userStore from '../../../lib/store/userStore';
 
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const Header = ({ unDoneTodoLength }: Props) => {
+  const router = useRouter();
+
   const today = new Date();
   const date = today.toLocaleString('ko-kr', {
     year: '2-digit',
@@ -18,12 +21,18 @@ const Header = ({ unDoneTodoLength }: Props) => {
     weekday: 'long',
   });
 
+  const signOut = () => {
+    localStorage.removeItem('token');
+    router.replace('/');
+  };
+
   return (
     <Container>
       <DayContainer>
         <Today>{date}</Today>
         <DayName>{dayName}</DayName>
       </DayContainer>
+      <SignOut onClick={signOut}>로그아웃</SignOut>
       {userStore.user?.email}
       <UndoneTodoLength>할 일 {unDoneTodoLength}개 남음</UndoneTodoLength>
     </Container>
@@ -64,6 +73,21 @@ const Today = styled.div`
 const DayName = styled.div`
   font-size: 15px;
   color: grey;
+`;
+
+const SignOut = styled.button`
+  width: 60px;
+  height: 30px;
+  position: absolute;
+  top: 35%;
+  left: 3%;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  background-color: #bebebe;
+  cursor: pointer;
+  z-index: 2;
 `;
 
 const UndoneTodoLength = styled.div`
