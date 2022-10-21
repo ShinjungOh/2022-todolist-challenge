@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useMemo, useRef, useState,
+  useEffect, useMemo, useState,
 } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
@@ -8,6 +8,10 @@ import { TodoCreate, TodoHeader, TodoList } from '@components/todo';
 
 import { useTodoStores } from '../lib/store/stores';
 import { TodoItemType } from '../lib/interface/todo.interface';
+import { getTodoItem } from '../lib/api/todo/getTodoItem';
+import { postTodoItem } from '../lib/api/todo/postTodoItem';
+import { patchTodoItem } from '../lib/api/todo/patchTodoItem';
+import { deleteTodoItem } from '../lib/api/todo/deleteTodoItem';
 
 const Todolist = () => {
   const router = useRouter();
@@ -16,8 +20,6 @@ const Todolist = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [createItem, setCreateItem] = useState('');
   const [todos, setTodos] = useState<TodoItemType[]>([]);
-
-  const nextId = useRef(0);
 
   const onToggleOpen = () => {
     setIsOpen((prev) => !prev);
@@ -28,30 +30,51 @@ const Todolist = () => {
     setCreateItem(value);
   };
 
-  const onSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    setTodos((todo) => [
-      ...todo,
-      {
-        id: nextId.current,
-        text: createItem,
-        done: false,
-      },
-    ]);
-    nextId.current++;
-    setCreateItem('');
-    setIsOpen(false);
+  const onSubmit = async (e: { preventDefault: () => void; }) => {
+    try {
+      e.preventDefault();
+      await postTodoItem({ text: createItem });
+      await getTodo();
+      setCreateItem('');
+      setIsOpen(false);
+    } catch (e) {
+      alert('제출 오류가 발생했습니다.');
+    }
   };
 
-  const onDone = (id: number) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo)));
+  const onDone = async (id: number, done: boolean) => {
+    try {
+      await patchTodoItem(id, done);
+      await getTodo();
+    } catch (e) {
+      alert('할 일 완료 오류가 발생했습니다.');
+    }
   };
 
-  const onDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const onDelete = async (id: number) => {
+    try {
+      await deleteTodoItem(id);
+      await getTodo();
+    } catch (e) {
+      alert('삭제 오류가 발생했습니다.');
+    }
   };
 
   const unDoneTodoLength = useMemo(() => todos.filter((todo) => !todo.done).length, [todos]);
+
+  const getTodo = async () => {
+    try {
+      const response = await getTodoItem();
+      setTodos(response);
+    } catch (e) {
+      alert('불러오는 중 오류가 발생했습니다.');
+      setTodos([]);
+    }
+  };
+
+  useEffect(() => {
+    getTodo();
+  }, []);
 
   useEffect(() => {
     (async () => {

@@ -7,7 +7,7 @@ import { TodoItemType } from '../../../lib/interface/todo.interface';
 
 interface Props {
   todos: TodoItemType[];
-  onDone: (id: number) => void;
+  onDone: (id: number, done: boolean) => void;
   onDelete: (id: number) => void;
 }
 

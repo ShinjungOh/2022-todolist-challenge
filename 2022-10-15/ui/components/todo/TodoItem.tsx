@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import { TodoItemType } from '../../../lib/interface/todo.interface';
 
 interface Props {
-  onDone: (id: number) => void;
+  onDone: (id: number, done: boolean) => void;
   onDelete: (id: number) => void;
 }
 
@@ -19,7 +19,7 @@ const TodoItem = ({
   <Container>
     <Done
       done={done}
-      onClick={() => onDone(id)}
+      onClick={() => onDone(id, !done)}
     >
       {
         done
