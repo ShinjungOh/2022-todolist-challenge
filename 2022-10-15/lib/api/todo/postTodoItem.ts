@@ -1,6 +1,6 @@
 import { client } from '../client';
 
-export const postTodoItem = async (param: {text: string}) => {
+export const postTodoItem = async (param: string) => {
   const url = '/api/v2/todo';
   const userToken = localStorage.getItem('token');
   const headers = {
