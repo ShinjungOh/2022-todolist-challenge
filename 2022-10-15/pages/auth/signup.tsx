@@ -45,7 +45,7 @@ const Signup = () => {
       <InputContainer>
         <Label htmlFor="id">아이디를 입력하세요.</Label>
         <Input
-          type="text"
+          type="email"
           id="id"
           name="email"
           placeholder="이메일 형식으로 입력"
@@ -56,7 +56,7 @@ const Signup = () => {
       <InputContainer>
         <Label htmlFor="password">비밀번호를 입력하세요.</Label>
         <Input
-          type="text"
+          type="password"
           id="password"
           name="password"
           value={userStore.signUp.password}
@@ -66,7 +66,7 @@ const Signup = () => {
       <InputContainer>
         <Label htmlFor="password-check">비밀번호 확인</Label>
         <Input
-          type="text"
+          type="password"
           id="password-check"
           name="passwordCheck"
           value={userStore.signUp.passwordCheck}

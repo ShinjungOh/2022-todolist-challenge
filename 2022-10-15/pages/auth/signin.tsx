@@ -35,7 +35,7 @@ const Signin = () => {
       <InputContainer>
         <Label htmlFor="id">아이디를 입력하세요.</Label>
         <Input
-          type="text"
+          type="email"
           id="id"
           name="email"
           onChange={onChangeInput}
@@ -44,7 +44,7 @@ const Signin = () => {
       <InputContainer>
         <Label htmlFor="password">비밀번호를 입력하세요.</Label>
         <Input
-          type="text"
+          type="password"
           id="password"
           name="password"
           onChange={onChangeInput}
