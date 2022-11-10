@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 
 import GlobalStyles from '@ui/core/GlobalStyles';
+import { Page } from '@components/layout';
 
 const MyApp = ({
   Component,
@@ -12,7 +13,9 @@ const MyApp = ({
       <title>투두 리스트</title>
     </Head>
     <GlobalStyles />
-    <Component {...pageProps} />
+    <Page>
+      <Component {...pageProps} />
+    </Page>
   </>
 );
 
